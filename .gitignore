@@ -62,3 +62,4 @@ appsettings.json
 PublishProfiles/
 .vs/
 .vscode/
+.vite/
