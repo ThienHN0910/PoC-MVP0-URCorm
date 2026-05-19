@@ -55,3 +55,9 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+*.user
+appsettings.*.json
+PublishProfiles/
+.vs/
+.vscode/
