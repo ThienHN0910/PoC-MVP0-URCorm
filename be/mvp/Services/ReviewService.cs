@@ -5,9 +5,9 @@ namespace mvp.Services;
 
 public sealed class ReviewService(IReviewRepository reviewRepository, IGeminiClient geminiClient) : IReviewService
 {
-    public async Task<IReadOnlyList<GetDataResponseItem>> GetDataAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<GetDataResponseItem>> GetDataAsync(string? placeId, CancellationToken cancellationToken)
     {
-        var reviews = await reviewRepository.GetReviewsAsync(cancellationToken);
+        var reviews = await reviewRepository.GetReviewsAsync(placeId, cancellationToken);
         return reviews
             .OrderByDescending(r => r.CreatedAt)
             .Select(r => new GetDataResponseItem

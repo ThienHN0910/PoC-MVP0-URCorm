@@ -21,8 +21,14 @@ public sealed class MongoReviewRepository : IReviewRepository
         _reviews = database.GetCollection<ReviewDocument>(settings.ReviewsCollectionName);
     }
 
-    public async Task<IReadOnlyList<ReviewDocument>> GetReviewsAsync(CancellationToken cancellationToken)
-        => await _reviews.Find(Builders<ReviewDocument>.Filter.Empty).ToListAsync(cancellationToken);
+    public async Task<IReadOnlyList<ReviewDocument>> GetReviewsAsync(string? placeId, CancellationToken cancellationToken)
+    {
+        var filter = string.IsNullOrWhiteSpace(placeId)
+            ? Builders<ReviewDocument>.Filter.Empty
+            : Builders<ReviewDocument>.Filter.Eq(x => x.PlaceId, placeId.Trim());
+
+        return await _reviews.Find(filter).ToListAsync(cancellationToken);
+    }
 
     public async Task<ReviewDocument?> GetReviewByIdAsync(string reviewId, CancellationToken cancellationToken)
         => await _reviews.Find(x => x.Id == reviewId).FirstOrDefaultAsync(cancellationToken);

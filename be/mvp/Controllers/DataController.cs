@@ -8,9 +8,9 @@ namespace mvp.Controllers;
 public sealed class DataController(IReviewService reviewService) : ControllerBase
 {
     [HttpGet("data")]
-    public async Task<ActionResult<IReadOnlyList<GetDataResponseItem>>> GetData(CancellationToken cancellationToken)
+    public async Task<ActionResult<IReadOnlyList<GetDataResponseItem>>> GetData([FromQuery] string? placeId, CancellationToken cancellationToken)
     {
-        var data = await reviewService.GetDataAsync(cancellationToken);
+        var data = await reviewService.GetDataAsync(placeId, cancellationToken);
         return Ok(data);
     }
 
