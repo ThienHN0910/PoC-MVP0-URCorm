@@ -58,6 +58,7 @@ nunit-*.xml
 
 *.user
 appsettings.*.json
+appsettings.json
 PublishProfiles/
 .vs/
 .vscode/
