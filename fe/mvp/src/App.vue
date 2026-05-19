@@ -36,6 +36,7 @@ const fetchData = async () => {
 
 const callAi = async (review) => {
   error.value = ''
+  loading.value = true
   const response = await fetch(`${apiBaseUrl}/api/callAI`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -48,8 +49,10 @@ const callAi = async (review) => {
 
   if (!response.ok) {
     error.value = 'Gọi AI thất bại'
+    loading.value = false
     return
   }
+  loading.value = false
 
   review.aiSuggestions = await response.json()
 }
